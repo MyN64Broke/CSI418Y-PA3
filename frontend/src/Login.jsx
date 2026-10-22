@@ -1,7 +1,7 @@
 ﻿import { useState } from 'react';
 import React from 'react';
 
-export default function Login() {
+export default function Login({ onLoginSuccess }) {
     const [formData, setFormData] = useState({ username: '', password: '' });
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
@@ -28,6 +28,12 @@ export default function Login() {
             } else {
                 setIsError(false);
                 setMessage(data.message);
+
+                if (onLoginSuccess) {
+                    setTimeout(() => {
+                        onLoginSuccess(formData);
+                    }, 800);
+                }
             }
         } catch (err) {
             setIsError(true);
